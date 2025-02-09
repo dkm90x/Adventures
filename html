@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Desert Journey Adventure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS Styles -->
+  <style>
+    body {
+      background-color: #FFF8E1; /* Soft sand color */
+      font-family: 'Verdana', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #5D4037; /* Warm brown text */
+    }
+    #game-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+    }
+    #scene-image {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    #story {
+      font-size: 1.2em;
+      margin: 20px 0;
+    }
+    .choice-button {
+      display: block;
+      width: 80%;
+      margin: 10px auto;
+      padding: 15px;
+      font-size: 1em;
+      background-color: #FFE0B2; /* Light orange */
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .choice-button:hover {
+      background-color: #FFCC80;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="game-container">
+    <img id="scene-image" src="" alt="Scene Image">
+    <div id="story"></div>
+    <div id="choices"></div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const gameData = {
+      start: {
+        text: "You find yourself in a vast, golden desert. The sun is warm, and the sand sparkles like tiny jewels. Beside you stands a friendly elephant with wise eyes.",
+        img: "https://example.com/images/desert.png",
+        choices: [
+          { text: "Smile and greet the elephant", next: "greetElephant" },
+          { text: "Climb on the elephant's back", next: "rideElephant" },
+          { text: "Ask the elephant where to go", next: "askDirection" }
+        ]
+      },
+      greetElephant: {
+        text: "The elephant trumpets happily. 'Hello, friend!' it says. 'Shall we explore together?'",
+        img: "https://example.com/images/elephant_happy.png",
+        choices: [
+          { text: "Explore the desert together", next: "exploreTogether" },
+          { text: "Tell the elephant a secret", next: "tellSecret" },
+          { text: "Wave goodbye and walk alone", next: "walkAlone" }
+        ]
+      },
+      rideElephant: {
+        text: "You climb onto the elephant's back, feeling tall and brave. As you journey, the desert unfolds its mysteries.",
+        img: "https://example.com/images/elephant_ride.png",
+        choices: [
+          { text: "Head towards distant mountains", next: "mountains" },
+          { text: "Visit a sparkling oasis", next: "oasis" },
+          { text: "Follow the starry night sky", next: "nightSky" }
+        ]
+      },
+      askDirection: {
+        text: "The elephant thinks carefully. 'The journey is yours to choose,' it says. 'Where does your heart lead you?'",
+        img: "https://example.com/images/elephant_thinking.png",
+        choices: [
+          { text: "Seek hidden treasure", next: "hiddenTreasure" },
+          { text: "Find new friends", next: "newFriends" },
+          { text: "Discover who I am", next: "selfDiscovery" }
+        ]
+      },
+      // --- Additional Scenes ---
+      exploreTogether: {
+        text: "You and the elephant walk side by side, sharing stories. You feel a deep joy in companionship.",
+        img: "https://example.com/images/exploring.png",
+        choices: [
+          { text: "Climb a tall sand dune", next: "sandDune" },
+          { text: "Listen to the wind's song", next: "windSong" },
+          { text: "Dance under the sun", next: "sunDance" }
+        ]
+      },
+      // ... (Continue adding scenes and choices)
+      // --- Endings ---
+      selfDiscovery: {
+        text: "You sit quietly and reflect. The desert whispers, and you realize that bravery and wisdom are already within you.",
+        img: "https://example.com/images/self_discovery.png",
+        choices: [
+          { text: "Smile and embrace yourself", next: "end" },
+          { text: "Share your joy with the elephant", next: "shareJoy" },
+          { text: "Begin a new adventure", next: "start" }
+        ]
+      },
+      end: {
+        text: "Your journey has brought you wisdom and happiness. Remember, the most wonderful adventure is being yourself.",
+        img: "https://example.com/images/end.png",
+        choices: [
+          { text: "Play Again", next: "start" }
+        ]
+      }
+    };
+
+    let currentScene = 'start';
+
+    function startGame() {
+      showScene(currentScene);
+    }
+
+    function showScene(sceneKey) {
+      const scene = gameData[sceneKey];
+      document.getElementById('scene-image').src = scene.img;
+      document.getElementById('story').innerText = scene.text;
+      const choicesDiv = document.getElementById('choices');
+      choicesDiv.innerHTML = '';
+
+      scene.choices.forEach(choice => {
+        const button = document.createElement('button');
+        button.innerText = choice.text;
+        button.className = 'choice-button';
+        button.onclick = () => {
+          showScene(choice.next);
+        };
+        choicesDiv.appendChild(button);
+      });
+    }
+
+    startGame();
+  </script>
+
+</body>
+</html>
